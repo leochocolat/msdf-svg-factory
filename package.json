@@ -1,0 +1,23 @@
+{
+  "name": "msdf-svg-factory",
+  "version": "1.0.0",
+  "description": "## Description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leochocolat/msdf-svg-factory.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leochocolat/msdf-svg-factory/issues"
+  },
+  "homepage": "https://github.com/leochocolat/msdf-svg-factory#readme",
+  "dependencies": {
+    "svg-parser": "^2.0.4",
+    "yargs": "^17.5.1"
+  }
+}
