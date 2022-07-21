@@ -26,36 +26,28 @@ function start(name) {
     interface.close();
 
     console.log(`\nGenerating SVG ${name}...`);
+
+    const { input, outputPath } = svgs[name];
     
-    const svg = fs.readFileSync(svgs[name].path, 'utf8');
+    const svg = fs.readFileSync(input, 'utf8');
     
     const parsedSvg = parse(svg);
 
     const rootElement = parsedSvg.children[0];
     const { properties } = rootElement;
     const [left, top, right, bottom] = properties.viewBox.split(' ');
-    const width = parseFloat(right) - parseFloat(left);
-    const height = parseFloat(bottom) - parseFloat(top);
+    const width = Math.round(parseFloat(right) - parseFloat(left));
+    const height = Math.round(parseFloat(bottom) - parseFloat(top));
 
-    const command = `./msdfgen/msdfgen msdf -svg ${svgs[name].path} -size ${width} ${height}`;
+    const command = `./msdfgen/out/msdfgen msdf -svg ${input} -size ${width} ${height} -o ${outputPath}/${name}.png`;
 
-    console.log(command);
-
-    exec(command, (error, response) => {
-        if (error) {
-            console.error('Failed...');
-            console.error(error);
-            return;
-        }
-
-        console.error('Success...');
-    });
-
-    // try {
-        
-    // } catch (err) {
-    //     console.error(err);
-    // }
+    try {
+        exec(command, (error) => {
+            if (error) throw error;
+            console.error('\nSuccess!\n');
+        });
+    } catch(err) {
+        console.error('\nFailed...\n');
+        console.error(err);
+    }
 }
-
-

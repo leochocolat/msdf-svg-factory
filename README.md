@@ -3,7 +3,35 @@
 ## Description
 
 - Collection of generated MSDF SVG images 
-- Node script to easily generate your MSDF SVG images.
+- Node script to easily generate your MSDF SVG images using (msdfgen)[https://github.com/Chlumsky/msdfgen]
+
+## Installation
+
+You first need to build msdfgen
+
+```bash
+cd msdfgen
+```
+
+```bash
+mkdir out
+```
+
+```bash
+cd out && cmake .. && make
+```
+
+Then go back to the root
+
+```bash
+cd ../../
+```
+
+Install node modules
+
+```bash
+npm install
+```
 
 ## Usage
 
