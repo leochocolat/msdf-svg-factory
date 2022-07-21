@@ -27,7 +27,7 @@ function start(name) {
 
     console.log(`\nGenerating SVG ${name}...`);
 
-    const { input, outputPath } = svgs[name];
+    const { input, outputPath, options } = svgs[name];
     
     const svg = fs.readFileSync(input, 'utf8');
     
@@ -36,15 +36,21 @@ function start(name) {
     const rootElement = parsedSvg.children[0];
     const { properties } = rootElement;
     const [left, top, right, bottom] = properties.viewBox.split(' ');
-    const width = Math.round(parseFloat(right) - parseFloat(left));
-    const height = Math.round(parseFloat(bottom) - parseFloat(top));
+    const viewBoxWidth = parseFloat(right) - parseFloat(left);
+    const viewBowHeight = parseFloat(bottom) - parseFloat(top);
+    const viewBoxAspectRatio = viewBowHeight / viewBoxWidth;
+    const outputWidth = Math.round(Math.min(options.maxWidth, viewBoxWidth));
+    const outputHeight = Math.round(outputWidth * viewBoxAspectRatio);
 
-    const command = `./msdfgen/out/msdfgen msdf -svg ${input} -size ${width} ${height} -o ${outputPath}/${name}.png`;
+    const command = `./msdfgen/out/msdfgen msdf -svg ${input} -size ${outputWidth} ${outputHeight} -o ${outputPath}/${name}.png -printmetrics -autoframe`;
 
     try {
-        exec(command, (error) => {
+        exec(command, (error, response) => {
             if (error) throw error;
             console.error('\nSuccess!\n');
+            
+            console.error('\nShape layout:');
+            console.log(response);
         });
     } catch(err) {
         console.error('\nFailed...\n');
