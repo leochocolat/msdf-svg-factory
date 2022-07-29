@@ -4,8 +4,6 @@ const readline = require('readline');
 const { parse } = require('svg-parser');
 const { exec } = require('child_process');
 
-const svgs = require('./svgs/index.js');
-
 const { name } = yargs
     .usage('Usage: --name <name>')
     .option('n', { alias: 'name', describe: 'SVG name', type: 'string', demandOption: false })
@@ -27,7 +25,9 @@ function start(name) {
 
     console.log(`\n⏳ Generating SVG ${name}...`);
 
-    const { input, inputPath, outputPath, options } = svgs[name];
+    const svgConfig = require(`./svgs/${name}/index.js`);
+
+    const { input, inputPath, outputPath, options } = svgConfig;
     
     const svg = fs.readFileSync(`${inputPath}/${input}`, 'utf8');
     

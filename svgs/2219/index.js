@@ -5,6 +5,6 @@ module.exports = {
     inputPath: path.join(__dirname, './input'),
     outputPath: path.join(__dirname, './output'),
     options: {
-        maxWidth: 128
+        maxWidth: 256
     }
 }

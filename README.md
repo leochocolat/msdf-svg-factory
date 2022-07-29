@@ -35,7 +35,7 @@ npm install
 
 ## Usage
 
-To generate a new SVG just duplicated an existing SVG folder. Don't forget to add it to the config file index.js, then run :
+To generate a new SVG just duplicate an existing SVG folder, rename it with the name you want, add the .svg file, check the config file and then run :
 
 ```bash
 node index.js
